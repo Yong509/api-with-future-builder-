@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:future_ex/constants/todo_enum.dart';
 import 'package:future_ex/data_models/todo_model.dart';
 import 'package:future_ex/service/todo_service.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,6 +18,10 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     futureTodo = TodoService.fetchTodos();
+  }
+
+  String formateDateTime(String dateTime) {
+    return DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime));
   }
 
   @override
@@ -105,6 +110,13 @@ class _HomePageState extends State<HomePage> {
                               );
                           }
                         }()),
+                        trailing: Text(
+                          formateDateTime(snapshot.data![index].dead_line),
+                          style: Theme.of(context).textTheme.caption!.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
                       ),
                     );
                   },
